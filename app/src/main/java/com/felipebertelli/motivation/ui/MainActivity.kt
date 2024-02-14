@@ -11,6 +11,7 @@ import com.felipebertelli.motivation.R.id
 import com.felipebertelli.motivation.data.Mock
 import com.felipebertelli.motivation.infra.SecurityPreferences
 import com.felipebertelli.motivation.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -51,7 +52,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handleNextPhrase() {
-        binding.textPhrase.text = Mock().getPhrase(categoryId)
+
+        binding.textPhrase.text = Mock().getPhrase(categoryId, Locale.getDefault().language)
     }
 
     fun handleFilter(id: Int) {
@@ -94,6 +96,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun handleUsername() {
         val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
-        binding.textHello.text = "Olá, ${name}"
+        val greeting = getString(R.string.hello)
+
+        binding.textHello.text = "${greeting}, ${name}"
     }
 }
